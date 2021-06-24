@@ -11,7 +11,7 @@ const styles = makeStyles({
       paddingTop: '56.25%' // 16:9
    },
    card: {
-      position: 'relative',
+      position: 'relative'
    },
    overlay: {
       position: 'absolute',
@@ -27,7 +27,7 @@ export default function NavBar(){
     return(
         <div className = "navbar">
             <Card style = {styles.card}>
-                <CardContent >
+                <CardContent>
                     <Typography variant="body2" color="textSecondary" component="h1">
                         Life Tracker
                     </Typography>
