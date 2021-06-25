@@ -13,6 +13,7 @@ import SignUp from '../SignUp/SignUp';
 import InvalidLogin from '../InvalidLogin/InvalidLogin';
 
 function App() {
+  const [user, setUser] = useState({})
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,7 +21,7 @@ function App() {
         <Routes>
           <Route path = "/" element={<Hero/>}/>
           <Route path="/activity" element={<Activity/>}></Route>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/exercise" element={<Exercise/>}/>
           <Route path="/nutrition" element={<Nutrition/>}/>
