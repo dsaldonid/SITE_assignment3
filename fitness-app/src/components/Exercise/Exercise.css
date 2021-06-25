@@ -1,13 +1,14 @@
-.activity-header{
+.banner{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     align-items: center;
+    justify-content: center;
+    background-color: cyan;
+    margin-top: 1%;
 }
 
-.wrapper{
+.overview{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    margin-top: 1%;
 }

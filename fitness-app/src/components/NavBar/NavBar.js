@@ -6,13 +6,13 @@ export default function NavBar(){
         <div className = "navbar">
             <img src = "http://codepath-lifetracker.surge.sh/static/media/codepath.70a9a31f.svg" alt = "logo"></img>
             <div className = "nav-buttons">
-                <Button color="secondary">Activity</Button>
-                <Button color="secondary">Exercise</Button>
-                <Button color="secondary">Nutrition</Button>
-                <Button color="secondary">Sleep</Button>
-                <Button className = "invisible" color="secondary">Login</Button>
-                <Button variant="contained" color="primary" disableElevation>
-                    Sign In 
+                <Button color="primary" href ="/activity">Activity</Button>
+                <Button color="primary" href ="/exercise">Exercise</Button>
+                <Button color="primary" href ="/nutrition">Nutrition</Button>
+                <Button color="primary" href ="/sleep">Sleep</Button>
+                <Button href ="/login" color="primary">Sign In</Button>
+                <Button href ="/signup" variant="contained" color="primary" disableElevation>
+                    Sign Up
                 </Button>
             </div>
         </div>

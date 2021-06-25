@@ -1,18 +1,23 @@
 import Button from '@material-ui/core/Button';
-import "./Login.css"
-import { Grid, Paper ,Avatar, TextField, Typography, Link} from '@material-ui/core';
+import { Grid, Paper ,Avatar, TextField, Typography, Link, Box, makeStyles} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-export default function Login(){
+export default function InvalidLogin(){
     const paperStyle = {
         padding:20,
         height:"70vh",
         width:280,
         margin:"20px auto"
     }
+    const textColor = {
+        color:"red"
+    }
     return(
         <Grid>
+            <Box display="flex" justifyContent="center" alignItems="center">
+                <Typography style={textColor}>You must be logged in to access that page</Typography>
+            </Box>
             <Paper elevation = {10} style= {paperStyle}>
                 <Grid align = "center">
                     <Avatar>
