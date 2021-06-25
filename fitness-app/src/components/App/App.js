@@ -14,19 +14,21 @@ import InvalidLogin from '../InvalidLogin/InvalidLogin';
 
 function App() {
   const [user, setUser] = useState({})
+  console.log(Object.keys(user).length === 0);
+ 
   return (
     <div className="App">
       <BrowserRouter>
         <NavBar/>
         <Routes>
           <Route path = "/" element={<Hero/>}/>
-          <Route path="/activity" element={<Activity/>}></Route>
+          <Route path=  "/activity" element={<Activity user={user}/>}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser}/>}/>
           <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/exercise" element={<Exercise/>}/>
-          <Route path="/nutrition" element={<Nutrition/>}/>
-          <Route path="/sleep" element={<Sleep/>}/>
-          <Route path="/invalidlogin" element={<InvalidLogin/>}/>
+          <Route path="/exercise" element={<Exercise user={user}/>}/>
+          <Route path="/nutrition" element={<Nutrition user={user}/>}/>
+          <Route path="/sleep" element={<Sleep user={user}/>}/>
+          <Route path="/invalidlogin" element={<InvalidLogin user={user} setUser={setUser}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

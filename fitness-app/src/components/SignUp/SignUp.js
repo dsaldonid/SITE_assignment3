@@ -5,8 +5,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useEffect, useState } from "react"
 import axios from "axios"
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp({ user, setUser }){
+
+    const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({
@@ -14,10 +17,41 @@ export default function SignUp({ user, setUser }){
         password: "",
     })
 
+    useEffect(() => {
+        // if user is already logged in,
+        // redirect them to the home page
+        if (user?.email) {
+          navigate("/activity")
+        }
+      }, [user, navigate])
+
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
-        console.log(form)
     }
+
+    const handleOnSubmit = async () => {
+        setIsProcessing(true)
+        setErrors((e) => ({ ...e, form: null }))
+        try {
+          const res = await axios.post("http://localhost:3001/auth/register", {
+            username: form.username,
+            password: form.password,
+          })
+          if (res?.data?.user) {
+            setUser(res.data.user)
+          } else {
+            setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
+          }
+        } catch (err) {
+          console.log(err)
+          const message = err?.response?.data?.error?.message
+          setErrors((e) => ({ ...e, form: message ?? String(err) }))
+        } finally {
+          setIsProcessing(false)
+          navigate("/login")
+        }
+      }
+
     const paperStyle = {
         padding:20,
         height:"70vh",
@@ -52,7 +86,14 @@ export default function SignUp({ user, setUser }){
                     fullWidth 
                     required
                 />
-                <Button type = 'submit' variant = "contained" color = 'primary' fullWidth>Sign Up</Button>
+                <Button 
+                    onClick={handleOnSubmit}
+                    type = 'submit' 
+                    variant = "contained" 
+                    color = 'primary' 
+                    fullWidth
+                    >Sign Up
+                </Button>
             </Paper>
         </Grid>
     )

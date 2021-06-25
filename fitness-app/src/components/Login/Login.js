@@ -6,15 +6,27 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import axios from "axios"
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useNavigate } from "react-router-dom"
 
 
 export default function Login({ user, setUser }){
+    const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({
     username: "",
     password: "",
   })
+
+  // useEffect(() => {
+  //   // if user is already logged in,
+  //   // redirect them to the home page
+  //   if (Object.keys(user).length !== 0) {
+  //     navigate("/activity")
+  //   }
+  // }, [user, navigate])
+
+  
     const handleOnInputChange = (event) => {
         if (event.target.name === "username") {
         // if (event.target.value.indexOf("@") === -1) {
@@ -43,6 +55,7 @@ export default function Login({ user, setUser }){
           setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
         } finally {
           setIsProcessing(false)
+          navigate("/activity")
         }
       }
 

@@ -7,8 +7,24 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import { useNavigate } from "react-router-dom"
 
-export default function Activity() {
+export default function Activity({ user }) {
+    const navigate = useNavigate()
+    const cardStyle = {
+        display: 'block',
+        width: '30vw',
+        transitionDuration: '0.3s',
+        height: '15vw'
+    }
+
+    useEffect(() => {
+        // if user is already logged in,
+        // redirect them to the home page
+        if (Object.keys(user).length === 0) {
+          navigate("/invalidlogin")
+        }
+      }, [user, navigate])
     // const { productId } = useParams()
     // const [product, setProduct] = useState({})
     // const [isLoading, setIsLoading] = useState(false)
@@ -55,7 +71,7 @@ export default function Activity() {
             </div>
         </div>
         <div className="wrapper">
-            <Card>
+            <Card style={cardStyle}>
                 <CardContent >
                     <Typography variant="body2" color="textSecondary" component="h1">
                         Total Exercise Minutes
@@ -65,7 +81,7 @@ export default function Activity() {
                     </Typography>
                 </CardContent>
             </Card>
-            <Card>
+            <Card style={cardStyle}>
                 <CardContent >
                     <Typography variant="body2" color="textSecondary" component="h1">
                         Avg Sleep Hours
@@ -75,7 +91,7 @@ export default function Activity() {
                     </Typography>
                 </CardContent>
             </Card>
-            <Card>
+            <Card style={cardStyle}>
                 <CardContent >
                     <Typography variant="body2" color="textSecondary" component="h1">
                         Avg Daily Calories

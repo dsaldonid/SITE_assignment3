@@ -15,19 +15,18 @@ const styles = makeStyles({
    },
    overlay: {
       position: 'absolute',
-      top: '20px',
-      left: '20px',
-      color: 'black',
-      backgroundColor: 'white'
+      width: "200px",
+      paddingTop: "120px"
    }
 })
 
 export default function NavBar(){
     const classes = styles();
+    console.log(classes)
     return(
         <div className = "navbar">
-            <Card style = {styles.card}>
-                <CardContent>
+            <Card className={classes.card}>
+                <CardContent className={classes.overlay}>
                     <Typography variant="body2" color="textSecondary" component="h1">
                         Life Tracker
                     </Typography>
