@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar/>
+        <NavBar user={user} setUser={setUser}/>
         <Routes>
           <Route path = "/" element={<Hero/>}/>
           <Route path=  "/activity" element={<Activity user={user}/>}></Route>
