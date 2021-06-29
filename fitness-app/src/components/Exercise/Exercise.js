@@ -1,24 +1,20 @@
 import { Box, Typography , Button} from '@material-ui/core/'
 import "./Exercise.css"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 export default function Exercise({ user }){
     const navigate = useNavigate()
-    const defaultProps = {
-        bgcolor: 'background.paper',
-        m: 1,
-        style: { width: '5rem', height: '5rem' },
-        borderColor: 'text.primary',
-      };
-
-    useEffect(() => {
-    // if user is already logged in,
-    // redirect them to the home page
+    // const defaultProps = {
+    //     bgcolor: 'background.paper',
+    //     m: 1,
+    //     style: { width: '5rem', height: '5rem' },
+    //     borderColor: 'text.primary',
+    //   };
+    
     if (Object.keys(user).length === 0) {
         navigate("/invalidlogin")
     }
-    }, [user, navigate])
     
     return(
         <div className = "exercise">
@@ -31,9 +27,11 @@ export default function Exercise({ user }){
                 <Typography variant="h3" gutterBottom>
                     Overview
                 </Typography>
-                <Button variant="contained" color="secondary" size = "small">
-                    Add Exercise
-                </Button>
+                <Link to="/exercise/form">
+                    <Button variant="contained" color="secondary" size = "small">
+                        Add Exercise
+                    </Button>
+                </Link>
             </div>
             <div className = "content">
                 <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="center">

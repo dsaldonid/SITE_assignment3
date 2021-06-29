@@ -3,7 +3,7 @@ import { Grid, Paper ,Avatar, TextField, Typography, Link} from '@material-ui/co
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useEffect, useState } from "react"
-import axios from "axios"
+import apiClient from '../../services/apiClient';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useNavigate } from "react-router-dom"
 
@@ -32,24 +32,18 @@ export default function SignUp({ user, setUser }){
     const handleOnSubmit = async () => {
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
-        try {
-          const res = await axios.post("http://localhost:3001/auth/register", {
-            username: form.username,
-            password: form.password,
-          })
-          if (res?.data?.user) {
-            setUser(res.data.user)
-          } else {
-            setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
-          }
-        } catch (err) {
-          console.log(err)
-          const message = err?.response?.data?.error?.message
-          setErrors((e) => ({ ...e, form: message ?? String(err) }))
-        } finally {
-          setIsProcessing(false)
-          navigate("/login")
+
+        const {data, error } = await apiClient.signupUser({username: form.username, password: form.password})
+        if (error){
+          setErrors((e) => ({ ...e, form:error}))
         }
+        if (data?.user){
+          setUser(data.user)
+          apiClient.setToken(data.token)
+        }
+
+        setIsProcessing(false)
+        navigate("/login")
       }
 
     const paperStyle = {

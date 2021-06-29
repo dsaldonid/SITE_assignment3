@@ -6,7 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import axios from "axios"
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import apiClient from '../../services/apiClient';
 
 
 export default function Login({ user, setUser }){
@@ -18,45 +19,25 @@ export default function Login({ user, setUser }){
     password: "",
   })
 
-  // useEffect(() => {
-  //   // if user is already logged in,
-  //   // redirect them to the home page
-  //   if (Object.keys(user).length !== 0) {
-  //     navigate("/activity")
-  //   }
-  // }, [user, navigate])
-
-  
     const handleOnInputChange = (event) => {
-        if (event.target.name === "username") {
-        // if (event.target.value.indexOf("@") === -1) {
-        //     setErrors((e) => ({ ...e, email: "Please enter a valid email." }))
-        // } else {
-        //     setErrors((e) => ({ ...e, email: null }))
-        // }
-        }
-
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
     }
 
     const handleOnSubmit = async () => {
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
-    
-        try {
-          const res = await axios.post("http://localhost:3001/auth/login", form)
-          if (res?.data?.user) {
-            setUser(res.data.user)
-          } else {
-            setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-          }
-        } catch (err) {
-          console.log(err)
-          setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-        } finally {
-          setIsProcessing(false)
-          navigate("/activity")
+
+        const {data, error } = await apiClient.loginUser({username: form.username, password: form.password})
+        if (error){
+          setErrors((e) => ({ ...e, form:error}))
         }
+        if (data?.user){
+          setUser(data.user)
+          console.log(data)
+          apiClient.setToken(data.token)
+        }
+        setIsProcessing(false)
+        navigate("/activity")
       }
 
     const paperStyle = {
