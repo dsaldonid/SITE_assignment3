@@ -9,7 +9,7 @@ function getDatabaseUri() {
   const dbPass = process.env.DATABASE_PASS ? encodeURI(process.env.DATABASE_PASS) : "postgres"
   const dbHost = process.env.DATABASE_HOST || "localhost"
   const dbPort = process.env.DATABASE_PORT || 5432
-  const dbName = process.env.DATABASE_NAME || "student_store"
+  const dbName = process.env.DATABASE_NAME || "fitness_app"
 
   return process.env.DATABASE_URL || `postgresql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`
 }

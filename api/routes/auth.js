@@ -14,7 +14,7 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
   }
 })
 
-router.post("/login", async (req, res, next) => {
+router.post("/login",async (req, res, next) => {
   try {
     const user = await User.login(req.body)
     const token = createUserJwt(user)

@@ -6,6 +6,15 @@ CREATE TABLE users (
   created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE exercise (
+  id          SERIAL PRIMARY KEY,
+  name        TEXT NOT NULL,
+  category    TEXT,
+  duration    INTEGER,
+  intensity   INTEGER,
+  user_id     INTEGER REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- CREATE TABLE products (
 --   id          SERIAL PRIMARY KEY,
 --   name        TEXT NOT NULL,

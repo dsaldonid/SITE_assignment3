@@ -7,6 +7,7 @@ const security = require("./middleware/security")
 const authRoutes = require("./routes/auth")
 const storeRoutes = require("./routes/store")
 const orderRoutes = require("./routes/orders")
+const exerciseRoutes = require("./routes/exercise")
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use(security.extractUserFromJwt)
 app.use("/auth", authRoutes)
 app.use("/store", storeRoutes)
 app.use("/orders", orderRoutes)
+app.use("/exercise",exerciseRoutes)
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
