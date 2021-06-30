@@ -4,10 +4,12 @@ class ApiClient{
   constructor(remoteHostUrl){
     this.remoteHostUrl = remoteHostUrl
     this.token = null
+    this.tokenName = "fitness_app_token"
   }
 
   setToken(token){
     this.token = token
+    localStorage.setItem(this.tokenName,token)
   }
 
   async request({ endpoint,method = 'GET', data = {}}){
@@ -30,15 +32,28 @@ class ApiClient{
     }
   }
 
+  async listUserExercise(){
+    return await this.request({endpoint:'exercise', method:"GET"})
+  }
   async createExercise(exercise){
-    return await this.request({ endpoint: 'exercise', method: "POST", data: exercise})
+    return await this.request({ endpoint:'exercise', method: "POST", data: exercise})
+  }
+  
+  async fetchUserFromToken(){
+    return await this.request({ endpoint:'auth/me', method:"GET"})
   }
 
   async loginUser(credentials){
     return await this.request({ endpoint: 'auth/login', method: 'POST', data: credentials})
   }
+
   async signupUser(credentials){
     return await this.request({ endpoint: 'auth/register', method: 'POST', data: credentials})
+  }
+
+  async logoutUser(){
+    this.setToken(null)
+    localStorage.setItem(this.tokenName,"")
   }
 }
 

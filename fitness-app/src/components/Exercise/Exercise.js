@@ -2,8 +2,9 @@ import { Box, Typography , Button} from '@material-ui/core/'
 import "./Exercise.css"
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import ExerciseCard from '../exerciseCard/exerciseCard'
 
-export default function Exercise({ user }){
+export default function Exercise({ user, exercises }){
     const navigate = useNavigate()
     // const defaultProps = {
     //     bgcolor: 'background.paper',
@@ -15,7 +16,7 @@ export default function Exercise({ user }){
     if (Object.keys(user).length === 0) {
         navigate("/invalidlogin")
     }
-    
+    console.log(exercises)
     return(
         <div className = "exercise">
             <div className ="banner">
@@ -33,6 +34,8 @@ export default function Exercise({ user }){
                     </Button>
                 </Link>
             </div>
+            {exercises.length !== 0?
+            exercises.map((exercise) => (<ExerciseCard exercise = {exercise}/>)):     
             <div className = "content">
                 <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="center">
                     <Typography contained variant="h4" gutterBottom>
@@ -40,6 +43,7 @@ export default function Exercise({ user }){
                     </Typography>
                 </Box>
             </div>
+            }
         </div>
         
        

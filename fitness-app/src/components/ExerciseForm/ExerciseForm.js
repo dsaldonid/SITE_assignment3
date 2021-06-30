@@ -26,6 +26,7 @@ export default function ExerciseForm({ user, addExercise }){
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
         
+        
         const {data, error} = await apiClient.createExercise(
             {
                 name: form.name, 
@@ -33,35 +34,22 @@ export default function ExerciseForm({ user, addExercise }){
                 duration: form.duration,
                 intensity: form.intensity
             })
-            
             console.log(data)
+            
             if (error){
                 setErrors((e) => ({ ...e, form:error}))
               }
             if (data){
-            // addExercise(data.exercise)
-            setForm({
-                name: "",
-                category: "",
-                duration: "",
-                intensity:""
+                // addExercise(data.exercise)
+                setForm({
+                    name: "",
+                    category: "",
+                    duration: "",
+                    intensity:""
             })
               }
               setIsProcessing(false)
               navigate("/exercise")
-        // try {
-        //   const res = await axios.post("http://localhost:3001/exercise", form)
-        //   if (res?.data?.user) {
-        //     setUser(res.data.user)
-        //   } else {
-        //     setErrors((e) => ({ ...e, form: "Invalid exercise entry" }))
-        //   }
-        // } catch (err) {
-        //   setErrors((e) => ({ ...e, form: "Invalid exercise entry" }))
-        // } finally {
-        //   setIsProcessing(false)
-        //   navigate("/exercise")
-        // }
       }
 
     const paperStyle = {
