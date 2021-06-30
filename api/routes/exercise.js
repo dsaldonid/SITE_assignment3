@@ -16,7 +16,7 @@ router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
 router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const user = res.locals.user
-    const exercise = await Exercise.createExercise({ exercise: req.body.exercise, user })
+    const exercise = await Exercise.createExercise({ exercise: req.body, user })
     return res.status(201).json({ exercise })
   } catch (err) {
     next(err)

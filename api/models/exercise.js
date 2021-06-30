@@ -6,6 +6,7 @@ class Exercise {
     const query = `
       SELECT exercise.id AS "exId",
              exercise.user_id AS "userId",
+             exercise.name as "name"
              exercise.category AS "cat",
              exercise.duration AS "dur",
              exercise.intensity AS "tense"
