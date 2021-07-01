@@ -6,7 +6,7 @@ class Exercise {
     const query = `
       SELECT exercise.id AS "exId",
              exercise.user_id AS "userId",
-             exercise.name as "name"
+             exercise.name AS "name",
              exercise.category AS "cat",
              exercise.duration AS "dur",
              exercise.intensity AS "tense"
@@ -14,7 +14,7 @@ class Exercise {
       WHERE exercise.user_id = (SELECT id FROM users WHERE username = $1)
     `
     const result = await db.query(query, [user.username])
-
+    console.log(result.rows)
     return result.rows
   }
 
