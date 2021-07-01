@@ -1,12 +1,13 @@
 import {Card, Typography,CardContent} from '@material-ui/core';
 
 export default function ExerciseCard({exercise}) {
+    console.log(exercise)
   return (
     <div className = "ExerciseCard">
             <Card>
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="h1">
-                        {exercise.cat}
+                        {exercise.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         Duration

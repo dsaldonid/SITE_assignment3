@@ -53,12 +53,13 @@ function App() {
       if (error) setError(error)
     }
       fetchExercise()
-  }, [])
+  
+  }, [exercise])
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar user={user} setUser={setUser}/>
+        <NavBar user={user} setUser={setUser} setExercise={setExercise}/>
         <Routes>
           <Route path = "/" element={<Hero/>}/>
           <Route path=  "/activity" element={<Activity user={user}/>}></Route>
@@ -68,7 +69,7 @@ function App() {
           <Route path="/nutrition" element={<Nutrition user={user}/>}/>
           <Route path="/sleep" element={<Sleep user={user}/>}/>
           <Route path="/invalidlogin" element={<InvalidLogin user={user} setUser={setUser}/>}/>
-          <Route path="/exercise/form" element={<ExerciseForm/>}/>
+          <Route path="/exercise/form" element={<ExerciseForm setExercise={setExercise}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

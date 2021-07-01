@@ -3,12 +3,13 @@ import "./NavBar.css"
 import { useNavigate, Link } from "react-router-dom"
 import apiClient from '../../services/apiClient';
 
-export default function NavBar({ user, setUser}){
+export default function NavBar({ user, setUser , setExercise }){
     const navigate = useNavigate()
     // check how states work for multiple users at once
     const emptyUser = async () => {
         await apiClient.logoutUser()
         setUser({})
+        setExercise([])
         navigate("/")
     }
 
@@ -28,9 +29,9 @@ export default function NavBar({ user, setUser}){
                     <Button color="primary">Activity</Button>
                 </Link>
                 
-                <Link to="/exercise" underline='none'>
-                    <Button color="primary">Exercise</Button>
-                </Link>
+                {/* <Link to="/exercise" underline='none'> */}
+                <Button href = '/exercise' color="primary">Exercise</Button>
+                {/* </Link> */}
 
                 <Link to="/nutrition" underline='none'>
                     <Button color="primary">Nutrition</Button>

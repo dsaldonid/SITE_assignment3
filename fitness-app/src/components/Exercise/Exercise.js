@@ -13,10 +13,16 @@ export default function Exercise({ user, exercises }){
     //     borderColor: 'text.primary',
     //   };
     
-    if (Object.keys(user).length === 0) {
-        navigate("/invalidlogin")
-    }
-    console.log(exercises)
+
+    // useEffect(() => {
+    // // if user is already logged in,
+    // // redirect them to the home page
+    // if (Object.keys(user).length === 0) {
+    //     navigate("/invalidlogin")
+    // }
+    // }, [user, navigate])
+    
+    // console.log(exercises)
     return(
         <div className = "exercise">
             <div className ="banner">
@@ -35,7 +41,7 @@ export default function Exercise({ user, exercises }){
                 </Link>
             </div>
             {exercises.length !== 0?
-            exercises.map((exercise) => (<ExerciseCard exercise = {exercise}/>)):     
+            exercises.map((exercise) => (<ExerciseCard exercise = {exercise}/>)): 
             <div className = "content">
                 <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="center">
                     <Typography contained variant="h4" gutterBottom>

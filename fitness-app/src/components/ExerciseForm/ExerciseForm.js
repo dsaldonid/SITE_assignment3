@@ -6,7 +6,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import apiClient from '../../services/apiClient';
 
-export default function ExerciseForm({ user, addExercise }){
+export default function ExerciseForm({ user, setExercise }){
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
@@ -40,7 +40,7 @@ export default function ExerciseForm({ user, addExercise }){
                 setErrors((e) => ({ ...e, form:error}))
               }
             if (data){
-                // addExercise(data.exercise)
+                setExercise((e) => [...e,data.exercise])
                 setForm({
                     name: "",
                     category: "",
