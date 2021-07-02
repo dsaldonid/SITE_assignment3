@@ -9,7 +9,7 @@ export default function useAppState(){
     const [appState, setAppState] = useState({
         user: null,
         isAuthenticated: false,
-        nutrition: [],
+        nutritions: [],
         sleep: [],
         exercises: [],
         token: ""

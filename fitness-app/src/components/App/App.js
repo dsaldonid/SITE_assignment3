@@ -12,6 +12,7 @@ import Sleep from '../Sleep/Sleep';
 import SignUp from '../SignUp/SignUp';
 import InvalidLogin from '../InvalidLogin/InvalidLogin';
 import ExerciseForm from "../ExerciseForm/ExerciseForm"
+import NutritionForm from "../NutritionForm/NutritionForm"
 // import apiClient from '../../services/apiClient';
 import { AppStateProvider} from "../../contexts/appStateContext"
 
@@ -97,6 +98,7 @@ function App() {
           <Route path="/sleep" element={<Sleep/>}/>
           <Route path="/invalidlogin" element={<InvalidLogin/>}/>
           <Route path="/exercise/form" element={<ExerciseForm />}/>
+          <Route path="/nutrition/form" element={<NutritionForm />}/>
         </Routes>
       </BrowserRouter>
     </div>

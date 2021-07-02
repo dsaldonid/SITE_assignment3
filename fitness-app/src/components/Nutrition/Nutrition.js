@@ -1,6 +1,7 @@
 import { Box, Typography , Button} from '@material-ui/core/'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import NutritionCard from '../NutritionCard/NutritionCard'
 import useRedirect from '../../hooks/useRedirect'
 import { useAppStateContext } from '../../contexts/appStateContext';
 
@@ -26,27 +27,34 @@ export default function Nutrition(){
     }
     }, [appState.isAuthenticated, navigate])
     return(
-        <div className = "Nutrition">
-            <Box display="flex" justifyContent="center" alignItems="center">
+        <div className = "nutrition">
+            <div className ="banner">
                 <Typography variant="h3" gutterBottom>
                     Nutrition
                 </Typography>
-            </Box>
+            </div>
             <div className = "overview">
-                <Typography variant="h3" gutterBottom>
+                <Typography variant="h4" gutterBottom>
                     Overview
                 </Typography>
-                <Button variant="contained" color="secondary" size = "small">
-                    Add Nutrition
-                </Button>
+                <Link to="/nutrition/form" style={{ textDecoration: 'none' }}>
+                    <Button variant="contained" color="secondary" size = "small">
+                        Add Nutrition
+                    </Button>
+                </Link>
             </div>
-            <div className = "content">
-                <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="center">
-                    <Typography contained variant="h4" gutterBottom>
-                        Nothing to show here
-                    </Typography>
-                </Box>
-            </div>
+            <Box display="flex" flexDirection="row" flexWrap ="wrap" justifyContent="center" alignItems="center">
+                {appState.nutritions.length !== 0?
+                appState.nutritions.map((nutrition) => (<NutritionCard nutrition = {nutrition}/>)): 
+                <div className = "content">
+                    <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="space-between">
+                        <Typography contained variant="h4" gutterBottom>
+                            Nothing to show here
+                        </Typography>
+                    </Box>
+                </div>
+                }
+            </Box>
         </div>
         
        
