@@ -6,6 +6,7 @@ class Sleep {
         const query =
             `
       SELECT sleep.id AS "sId",
+             sleep.created_at AS "create",
              sleep.user_id AS "userId",
              sleep.start_time AS "start",
              sleep.end_time AS "end"
@@ -43,6 +44,7 @@ class Sleep {
         const result = await db.query(
      `
         SELECT sleep.id AS "sId",
+                sleep.created_at AS "create",
                 sleep.user_id AS "userId",
                 sleep.start_time AS "start",
                 sleep.end_time AS "end"
