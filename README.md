@@ -51,18 +51,18 @@ Implement any of the following features to improve the application:
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-[If I had more time I would have finished up the activity page to show aggregate stats for all the acitivity pages.]
+[If I had more time I would have finished up the activity page to show aggregate stats for all the acitivity pages. I decided to refactor my code and modularized my code futher in order to centralize my app state. If I could go back in time, I'd try to find out where my knowledge gap is and immediately gain that certain knowledge before spending too much time trying to debug simple problems.]
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-[Add your response here]
+[Overall, everything went great! I was able to find some bugs with how specific components render and was able to fix those once my demo was finished. Next demo I want to implement more testing throughout my code to ensure that most bugs are caught before doing a demo.]
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+- https://material-ui.com/.
 
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
 
-[Add your response here]
+[I want to give a huge shout out to Paige, Matt and Kordell. They were incredibly helpful in questioning my approach and exposing gaps in my knowledge. Because of them I feel very confident in my full stack knowledge. I feel even more excited to learn more!]
