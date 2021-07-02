@@ -1,6 +1,6 @@
 import "./Activity.css"
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect } from "react"
+// import { useParams } from "react-router-dom"
 // import axios from "axios"
 import Typography from "@material-ui/core/Typography";
 import CardContent from '@material-ui/core/CardContent';
@@ -8,8 +8,10 @@ import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { useNavigate } from "react-router-dom"
+import { useAppStateContext } from '../../contexts/appStateContext';
 
 export default function Activity({ user }) {
+    const { appState, setAppState} = useAppStateContext()
     const navigate = useNavigate()
     const cardStyle = {
         display: 'block',
@@ -21,10 +23,12 @@ export default function Activity({ user }) {
     useEffect(() => {
         // if user is already logged in,
         // redirect them to the home page
-        if (Object.keys(user).length === 0) {
+        if (!appState.isAuthenticated) {
           navigate("/invalidlogin")
         }
-      }, [user, navigate])
+      }, [appState.isAuthenticated, navigate])
+
+    
     // const { productId } = useParams()
     // const [product, setProduct] = useState({})
     // const [isLoading, setIsLoading] = useState(false)

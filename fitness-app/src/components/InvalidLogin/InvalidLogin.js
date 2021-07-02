@@ -6,8 +6,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useAppStateContext } from '../../contexts/appStateContext';
+import apiClient from '../../services/apiClient';
 
-export default function InvalidLogin({ user, setUser }){
+export default function InvalidLogin(){
+    const { appState, setAppState} = useAppStateContext()
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
@@ -40,21 +43,21 @@ export default function InvalidLogin({ user, setUser }){
     const handleOnSubmit = async () => {
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
-    
-        try {
-          const res = await axios.post("http://localhost:3001/auth/login", form)
-          if (res?.data?.user) {
-            setUser(res.data.user)
-          } else {
-            setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-          }
-        } catch (err) {
-          console.log(err)
-          setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-        } finally {
-          setIsProcessing(false)
-          navigate("/activity")
+
+        const {data, error } = await apiClient.loginUser({username: form.username, password: form.password})
+        if (error){
+          setErrors((e) => ({ ...e, form:error}))
         }
+        if (data?.user){
+            setAppState((a) => (
+                {
+                    ...a, user: data.user,isAuthenticated: true
+                }
+                ))
+          apiClient.setToken(data.token)
+        }
+        setIsProcessing(false)
+        navigate("/activity")
       }
     const paperStyle = {
         padding:20,

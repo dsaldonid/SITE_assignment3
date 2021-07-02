@@ -8,9 +8,11 @@ import axios from "axios"
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useNavigate } from "react-router-dom";
 import apiClient from '../../services/apiClient';
+import { useAppStateContext } from '../../contexts/appStateContext';
 
 
 export default function Login({ user, setUser }){
+    const { appState, setAppState} = useAppStateContext()
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
@@ -32,8 +34,11 @@ export default function Login({ user, setUser }){
           setErrors((e) => ({ ...e, form:error}))
         }
         if (data?.user){
-          setUser(data.user)
-          console.log(data)
+            setAppState((a) => (
+                {
+                    ...a, user: data.user,isAuthenticated: true
+                }
+                ))
           apiClient.setToken(data.token)
         }
         setIsProcessing(false)

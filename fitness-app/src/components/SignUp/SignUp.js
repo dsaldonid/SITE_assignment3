@@ -7,8 +7,7 @@ import apiClient from '../../services/apiClient';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useNavigate } from "react-router-dom"
 
-export default function SignUp({ user, setUser }){
-
+export default function SignUp(){
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
@@ -17,13 +16,13 @@ export default function SignUp({ user, setUser }){
         password: "",
     })
 
-    useEffect(() => {
-        // if user is already logged in,
-        // redirect them to the home page
-        if (user?.email) {
-          navigate("/activity")
-        }
-      }, [user, navigate])
+    // useEffect(() => {
+    //     // if user is already logged in,
+    //     // redirect them to the home page
+    //     if (user?.email) {
+    //       navigate("/activity")
+    //     }
+    //   }, [user, navigate])
 
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
@@ -37,10 +36,10 @@ export default function SignUp({ user, setUser }){
         if (error){
           setErrors((e) => ({ ...e, form:error}))
         }
-        if (data?.user){
-          setUser(data.user)
-          apiClient.setToken(data.token)
-        }
+        // if (data?.user){
+        //   setUser(data.user)
+        //   apiClient.setToken(data.token)
+        // }
 
         setIsProcessing(false)
         navigate("/login")

@@ -1,23 +1,30 @@
 import { Box, Typography , Button} from '@material-ui/core/'
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import useRedirect from '../../hooks/useRedirect'
+import { useAppStateContext } from '../../contexts/appStateContext';
 
-export default function Nutrition({ user }){
+export default function Nutrition(){
+    const { appState } = useAppStateContext()
+
+    //appState not being passed properly
+    // useRedirect(appState)
+
     const navigate = useNavigate()
-    const defaultProps = {
-        bgcolor: 'background.paper',
-        m: 1,
-        style: { width: '5rem', height: '5rem' },
-        borderColor: 'text.primary',
-      };
+    // const defaultProps = {
+    //     bgcolor: 'background.paper',
+    //     m: 1,
+    //     style: { width: '5rem', height: '5rem' },
+    //     borderColor: 'text.primary',
+    //   };
 
     useEffect(() => {
     // if user is already logged in,
     // redirect them to the home page
-    if (Object.keys(user).length === 0) {
+    if (!appState.isAuthenticated) {
         navigate("/invalidlogin")
     }
-    }, [user, navigate])
+    }, [appState.isAuthenticated, navigate])
     return(
         <div className = "Nutrition">
             <Box display="flex" justifyContent="center" alignItems="center">
