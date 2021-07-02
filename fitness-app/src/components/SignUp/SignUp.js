@@ -14,6 +14,9 @@ export default function SignUp(){
     const [form, setForm] = useState({
         username: "",
         password: "",
+        email:"",
+        first_name:"",
+        last_name:""
     })
 
     // useEffect(() => {
@@ -32,7 +35,14 @@ export default function SignUp(){
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
 
-        const {data, error } = await apiClient.signupUser({username: form.username, password: form.password})
+        const {data, error } = await apiClient.signupUser(
+            {
+                username: form.username, 
+                password: form.password, 
+                email: form.email,
+                first_name:form.first_name, 
+                last_name:form.last_name
+            })
         if (error){
           setErrors((e) => ({ ...e, form:error}))
         }
@@ -72,10 +82,34 @@ export default function SignUp(){
                 />
                 <TextField 
                     onChange={handleOnInputChange}
+                    name = "email"
+                    label = "Email" 
+                    placeholder = "Enter email" 
+                    fullWidth 
+                    required
+                />
+                <TextField 
+                    onChange={handleOnInputChange}
                     name = "password"
                     label = "Password" 
                     placeholder = "Enter a password" 
                     type = "password" 
+                    fullWidth 
+                    required
+                />
+                <TextField 
+                    onChange={handleOnInputChange}
+                    name = "first_name"
+                    label = "First Name" 
+                    placeholder = "Enter first name" 
+                    fullWidth 
+                    required
+                />
+                <TextField 
+                    onChange={handleOnInputChange}
+                    name = "last_name"
+                    label = "Last Name" 
+                    placeholder = "Enter last name" 
                     fullWidth 
                     required
                 />

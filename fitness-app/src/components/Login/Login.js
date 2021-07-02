@@ -17,7 +17,7 @@ export default function Login({ user, setUser }){
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({
-    username: "",
+    email: "",
     password: "",
   })
 
@@ -29,7 +29,7 @@ export default function Login({ user, setUser }){
         setIsProcessing(true)
         setErrors((e) => ({ ...e, form: null }))
 
-        const {data, error } = await apiClient.loginUser({username: form.username, password: form.password})
+        const {data, error } = await apiClient.loginUser({email: form.email, password: form.password})
         if (error){
           setErrors((e) => ({ ...e, form:error}))
         }
@@ -64,9 +64,9 @@ export default function Login({ user, setUser }){
                 </Grid>
                 <TextField  
                     onChange={handleOnInputChange} 
-                    name ="username"
-                    label = "Username" 
-                    placeholder = "Enter username" 
+                    name ="email"
+                    label = "email" 
+                    placeholder = "Enter email" 
                     fullWidth 
                     required
                 />
