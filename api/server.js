@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth")
 const storeRoutes = require("./routes/store")
 const orderRoutes = require("./routes/orders")
 const exerciseRoutes = require("./routes/exercise")
+const nutritionRoutes = require("./routes/nutrition")
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.use("/auth", authRoutes)
 app.use("/store", storeRoutes)
 app.use("/orders", orderRoutes)
 app.use("/exercise",exerciseRoutes)
+app.use("/nutrition",nutritionRoutes)
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {
