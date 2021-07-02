@@ -22,7 +22,6 @@ const styles = makeStyles({
 
 export default function NavBar(){
     const classes = styles();
-    console.log(classes)
     return(
         <div className = "navbar">
             <Card className={classes.card}>

@@ -1,6 +1,7 @@
 import { Box, Typography , Button} from '@material-ui/core/'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import SleepCard from '../SleepCard/SleepCard'
 import useRedirect from '../../hooks/useRedirect'
 import { useAppStateContext } from '../../contexts/appStateContext';
 
@@ -9,8 +10,8 @@ export default function Sleep(){
 
     //appState not being passed properly
     // useRedirect(appState)
-    
-    // const navigate = useNavigate()
+
+    const navigate = useNavigate()
     // const defaultProps = {
     //     bgcolor: 'background.paper',
     //     m: 1,
@@ -18,35 +19,42 @@ export default function Sleep(){
     //     borderColor: 'text.primary',
     //   };
 
-    // useEffect(() => {
-    // // if user is already logged in,
-    // // redirect them to the home page
-    // if (Object.keys(user).length === 0) {
-    //     navigate("/invalidlogin")
-    // }
-    // }, [user, navigate])
+    useEffect(() => {
+    // if user is already logged in,
+    // redirect them to the home page
+    if (!appState.isAuthenticated) {
+        navigate("/invalidlogin")
+    }
+    }, [appState.isAuthenticated, navigate])
     return(
         <div className = "Sleep">
-            <Box display="flex" justifyContent="center" alignItems="center">
+            <div className ="banner">
                 <Typography variant="h3" gutterBottom>
                     Sleep
                 </Typography>
-            </Box>
+            </div>
             <div className = "overview">
-                <Typography variant="h3" gutterBottom>
+                <Typography variant="h4" gutterBottom>
                     Overview
                 </Typography>
-                <Button variant="contained" color="secondary" size = "small">
-                    Add Sleep
-                </Button>
+                <Link to="/Sleep/form" style={{ textDecoration: 'none' }}>
+                    <Button variant="contained" color="secondary" size = "small">
+                        Add Sleep
+                    </Button>
+                </Link>
             </div>
-            <div className = "content">
-                <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="center">
-                    <Typography contained variant="h4" gutterBottom>
-                        Nothing to show here
-                    </Typography>
-                </Box>
-            </div>
+            <Box display="flex" flexDirection="row" flexWrap ="wrap" justifyContent="center" alignItems="center">
+                {appState.sleep.length !== 0?
+                appState.sleep.map((sleep) => (<SleepCard sleep = {sleep}/>)): 
+                <div className = "content">
+                    <Box m= {1} border={1} display="flex" justifyContent="center" alignItems="space-between">
+                        <Typography contained variant="h4" gutterBottom>
+                            Nothing to show here
+                        </Typography>
+                    </Box>
+                </div>
+                }
+            </Box>
         </div>
         
        

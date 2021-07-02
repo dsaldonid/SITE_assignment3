@@ -10,6 +10,7 @@ export default function NavBar(){
     // check how states work for multiple users at once
     const emptyUser = async () => {
         await apiClient.logoutUser()
+        navigate("/")
         setAppState({
             user: null,
             isAuthenticated: false,
@@ -18,7 +19,7 @@ export default function NavBar(){
             exercise: [],
             token: ""
           })
-        navigate("/")
+        
     }
 
     const log = () =>{
@@ -37,9 +38,9 @@ export default function NavBar(){
                     <Button color="primary">Activity</Button>
                 </Link>
                 
-                {/* <Link to="/exercise" underline='none'> */}
-                <Button href = '/exercise' color="primary">Exercise</Button>
-                {/* </Link> */}
+                <Link to="/exercise" style={{ textDecoration: 'none' }}>
+                    <Button color="primary">Exercise</Button>
+                </Link>
 
                 <Link to="/nutrition" style={{ textDecoration: 'none' }}>
                     <Button color="primary">Nutrition</Button>

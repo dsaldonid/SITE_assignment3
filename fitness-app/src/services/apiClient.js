@@ -36,8 +36,19 @@ class ApiClient{
     return await this.request({endpoint:'exercise', method:"GET"})
   }
 
+  async listUserNutrition(){
+    return await this.request({endpoint:'nutrition', method:"GET"})
+  }
+
+  async listUserSleep(){
+    return await this.request({endpoint:'sleep', method:"GET"})
+  }
   async createNutrition(nutrition){
     return await this.request({ endpoint:'nutrition', method: "POST", data: nutrition})
+  }
+
+  async createSleep(sleep){
+    return await this.request({ endpoint:'sleep', method: "POST", data: sleep})
   }
 
   async createExercise(exercise){

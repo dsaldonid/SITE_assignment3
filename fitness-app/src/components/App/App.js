@@ -13,6 +13,7 @@ import SignUp from '../SignUp/SignUp';
 import InvalidLogin from '../InvalidLogin/InvalidLogin';
 import ExerciseForm from "../ExerciseForm/ExerciseForm"
 import NutritionForm from "../NutritionForm/NutritionForm"
+import SleepForm from "../SleepForm/SleepForm"
 // import apiClient from '../../services/apiClient';
 import { AppStateProvider} from "../../contexts/appStateContext"
 
@@ -99,6 +100,7 @@ function App() {
           <Route path="/invalidlogin" element={<InvalidLogin/>}/>
           <Route path="/exercise/form" element={<ExerciseForm />}/>
           <Route path="/nutrition/form" element={<NutritionForm />}/>
+          <Route path="/sleep/form" element={<SleepForm />}/>
         </Routes>
       </BrowserRouter>
     </div>

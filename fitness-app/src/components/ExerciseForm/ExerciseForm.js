@@ -48,7 +48,7 @@ export default function ExerciseForm() {
                     ...a, exercises:[...a.exercises,data.exercise[0]]
                 }
                 ))
-            console.log(appState.exercises)
+            // console.log(appState.exercises)
             setForm({
                 name: "",
                 category: "",

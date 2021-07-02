@@ -7,17 +7,14 @@ import { useNavigate } from "react-router-dom"
 import apiClient from '../../services/apiClient';
 import { useAppStateContext } from '../../contexts/appStateContext';
 
-export default function NutritionForm() {
-    const { appState, setAppState} = useAppStateContext()
+export default function SleepForm() {
+    const { appState, setAppState } = useAppStateContext()
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({
-        name: "",
-        category: "",
-        calories: 0,
-        quantity: 0,
-        image_url:""
+        start_time: "",
+        end_time: ""
     })
 
 
@@ -30,35 +27,29 @@ export default function NutritionForm() {
         setErrors((e) => ({ ...e, form: null }))
 
 
-        const { data, error } = await apiClient.createNutrition(
+        const { data, error } = await apiClient.createSleep(
             {
-                name: form.name,
-                category: form.category,
-                calories: form.calories,
-                quantity: form.quantity,
-                image_url: form.image_url,
+                start_time: form.start_time,
+                end_time: form.end_time
             })
         // have error with displaying card
         if (error) {
             setErrors((e) => ({ ...e, form: error }))
         }
         if (data) {
-            // setNutrition((e) => [...e, data.Nutrition[0]])
+            // setSleep((e) => [...e, data.Sleep[0]])
             setAppState((a) => (
                 {
-                    ...a, nutritions:[...a.nutritions,data.nutrition[0]]
+                    ...a, sleep: [...a.sleep, data.sleep[0]]
                 }
-                ))
+            ))
             setForm({
-                name: "",
-                category: "",
-                calories: 0,
-                quantity: 0,
-                image_url:""
+                start_time: "",
+                end_time: ""
             })
         }
         setIsProcessing(false)
-        navigate("/Nutrition")
+        navigate("/Sleep")
     }
 
     const paperStyle = {
@@ -75,48 +66,24 @@ export default function NutritionForm() {
                         <FitnessCenterIcon />
                     </Avatar>
                     <h2>
-                        Record Nutrition
+                        Record Sleep
                     </h2>
                 </Grid>
                 <TextField
                     onChange={handleOnInputChange}
-                    name="name"
-                    label="Name"
-                    placeholder="Enter Nutrition name"
+                    type = "datetime-local"
+                    name="start_time"
+                    label="Start Time"
+                    placeholder="Enter sleep start"
                     fullWidth
                     required
                 />
                 <TextField
                     onChange={handleOnInputChange}
-                    name="category"
-                    label="Category"
-                    placeholder="Enter Nutrition category"
-                    fullWidth
-                    required
-                />
-                <TextField
-                    onChange={handleOnInputChange}
-                    name="calories"
-                    label="Calories"
-                    type="number"
-                    placeholder="Enter Nutrition calories"
-                    fullWidth
-                    required
-                />
-                <TextField
-                    onChange={handleOnInputChange}
-                    name="quantity"
-                    label="Quantity"
-                    type="number"
-                    placeholder="Enter Nutrition quantity"
-                    fullWidth
-                    required
-                />
-                <TextField
-                    onChange={handleOnInputChange}
-                    name="image_url"
-                    label="Image_Url"
-                    placeholder="Enter Nutrition image url"
+                    type = "datetime-local"
+                    name="end_time"
+                    label="End Time"
+                    placeholder="Enter sleep end"
                     fullWidth
                     required
                 />
@@ -126,7 +93,7 @@ export default function NutritionForm() {
                     variant="contained"
                     color='primary'
                     fullWidth
-                >Record Nutrition
+                >Record Sleep
                 </Button>
             </Paper>
         </Grid>
