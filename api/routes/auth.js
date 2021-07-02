@@ -7,7 +7,7 @@ const router = express.Router()
 router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { username } = res.locals.user
-    const user = await User.fetchUserByUsername(username)
+    const user = await User.fetchUserByEmail(email)
     return res.status(200).json({ user })
   } catch (err) {
     next(err)

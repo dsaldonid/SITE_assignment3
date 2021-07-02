@@ -8,20 +8,21 @@ class User {
     return {
       id: user.id,
       username: user.username,
+      email:user.email,
       isAdmin: user.is_admin,
       createdAt: user.created_at,
     }
   }
 
   static async login(credentials) {
-    const requiredFields = ["username", "password"]
+    const requiredFields = ["email", "password"]
     requiredFields.forEach((property) => {
       if (!credentials.hasOwnProperty(property)) {
         throw new BadRequestError(`Missing ${property} in request body.`)
       }
     })
 
-    const user = await User.fetchUserByUsername(credentials.username)
+    const user = await User.fetchUserByEmail(credentials.email)
     if (user) {
       const isValid = await bcrypt.compare(credentials.password, user.password)
       if (isValid) {
@@ -33,45 +34,45 @@ class User {
   }
 
   static async register(credentials) {
-    const requiredFields = ["username", "password", "isAdmin"]
+    const requiredFields = ["username","first_name","last_name","email", "password", "isAdmin"]
     requiredFields.forEach((property) => {
       if (!credentials.hasOwnProperty(property)) {
         throw new BadRequestError(`Missing ${property} in request body.`)
       }
     })
 
-    // if (credentials.email.indexOf("@") <= 0) {
-    //   throw new BadRequestError("Invalid email.")
-    // }
-
-    const existingUser = await User.fetchUserByUsername(credentials.username)
+    if (credentials.email.indexOf("@") <= 0) {
+      throw new BadRequestError("Invalid email.")
+    }
+    
+    const existingUser = await User.fetchUserByEmail(credentials.email)
     if (existingUser) {
-      throw new BadRequestError(`A user already exists with username: ${credentials.username}`)
+      throw new BadRequestError(`A user already exists with email: ${credentials.email}`)
     }
 
     const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
     // const normalizedEmail = credentials.email.toLowerCase()
 
     const userResult = await db.query(
-      `INSERT INTO users (password, username, is_admin)
-       VALUES ($1, $2, $3)
-       RETURNING id, username, is_admin, created_at;
+      `INSERT INTO users (password, username, is_admin, email, first_name, last_name)
+       VALUES ($1, $2, $3, $4, $5,$6)
+       RETURNING id, username, is_admin, created_at, email, first_name, last_name;
       `,
-      [hashedPassword, credentials.username, credentials.isAdmin]
+      [hashedPassword, credentials.username, credentials.isAdmin,credentials.email,credentials.first_name,credentials.last_name]
     )
     const user = userResult.rows[0]
 
     return User.makePublicUser(user)
   }
 
-  static async fetchUserByUsername(username) {
-    if (!username) {
+  static async fetchUserByEmail(email) {
+    if (!email) {
       throw new BadRequestError("No username provided")
     }
 
-    const query = `SELECT * FROM users WHERE username = $1`
+    const query = `SELECT * FROM users WHERE email = $1`
 
-    const result = await db.query(query, [username])
+    const result = await db.query(query, [email])
 
     const user = result.rows[0]
 
