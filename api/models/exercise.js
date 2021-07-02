@@ -14,7 +14,6 @@ class Exercise {
       WHERE exercise.user_id = (SELECT id FROM users WHERE username = $1)
     `
     const result = await db.query(query, [user.username])
-    console.log(result.rows)
     return result.rows
   }
 

@@ -1,4 +1,4 @@
-const { BadRequestError } = require("../utils/errors")
+const { BadRequestError, UnprocessableEntityError } = require("../utils/errors")
 const db = require("../db")
 
 class Nutrition {
@@ -35,7 +35,6 @@ class Nutrition {
     `,
             [user.username, nutrition.name, nutrition.category, nutrition.calories, nutrition.quantity, nutrition.image_url]
         )
-
         // get orderId
         const NutritionId = NutritionResult.rows[0].id
 
@@ -51,7 +50,7 @@ class Nutrition {
              nutrition.category AS "cat",
              nutrition.calories AS "cal",
              nutrition.quantity AS "quant",
-             nutrition.image_url AS "img
+             nutrition.image_url AS "img"
       FROM nutrition
       WHERE nutrition.id = $1
     `,

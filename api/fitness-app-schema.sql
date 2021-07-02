@@ -17,11 +17,11 @@ CREATE TABLE exercise (
 
 CREATE TABLE nutrition (
   id          SERIAL PRIMARY KEY,
-  name        TEXT NOT NULL,
-  category    TEXT NOT NULL DEFAULT 'misc',
+  name        TEXT,
+  category    TEXT DEFAULT 'misc',
   calories    INTEGER,
   quantity    INTEGER DEFAULT 1, 
-  image_url   TEXT NOT NULL,
+  image_url   TEXT,
   user_id     INTEGER REFERENCES users(id) ON DELETE CASCADE,
   created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
