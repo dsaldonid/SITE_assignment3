@@ -38,8 +38,11 @@ Implement any of the following features to improve the application:
 - [x] Created context to share app state and setter throughout component without prop drilling
 
 ### Walkthrough Video
-
+ Frontend
 https://www.loom.com/share/5afb48bdc4964a77b7746b3253277ec0
+
+Backend Authentication
+https://www.loom.com/share/b31e628bb76d46a381682591d40e590d
 
 ### Reflection
 
