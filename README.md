@@ -44,6 +44,9 @@ https://www.loom.com/share/5afb48bdc4964a77b7746b3253277ec0
 Backend Authentication
 https://www.loom.com/share/b31e628bb76d46a381682591d40e590d
 
+Each activity item given unique id upon creation
+https://www.loom.com/share/939ad6c6e9754faea16ceb0875f9eba0
+
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
