@@ -2,6 +2,16 @@ const { BadRequestError, UnprocessableEntityError } = require("../utils/errors")
 const db = require("../db")
 
 class Nutrition {
+    static async avgNutritionForUser(user) {
+        const query = `
+      SELECT AVG(calories) AS "avgCal"
+      FROM nutrition
+      WHERE nutrition.user_id = (SELECT id FROM users WHERE username = $1)
+    `
+        const result = await db.query(query, [user.username])
+        return result.rows
+    }
+    
     static async listNutritionForUser(user) {
         const query = `
       SELECT nutrition.id AS "nuId",

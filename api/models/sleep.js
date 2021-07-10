@@ -2,6 +2,23 @@ const { BadRequestError, UnprocessableEntityError } = require("../utils/errors")
 const db = require("../db")
 
 class Sleep {
+    static async maxSleepForUser(user) {
+        const query =
+    `
+      SELECT sleep.start_time AS "start",
+             sleep.end_time AS "end"
+      FROM sleep
+      WHERE sleep.user_id = (SELECT id FROM users WHERE username = $1)
+    `
+    const result = await db.query(query, [user.username])
+
+    const diff = result.rows.map((sleep) => (
+       (new Date(sleep.end).valueOf() - new Date(sleep.start).valueOf())/(3600 * 1000)
+    ))
+
+    return Math.max(...diff)
+    }
+    
     static async listSleepForUser(user) {
         const query =
             `

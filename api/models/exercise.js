@@ -2,6 +2,16 @@ const { BadRequestError } = require("../utils/errors")
 const db = require("../db")
 
 class Exercise {
+  static async totalExerciseForUser(user) {
+    const query = `
+      SELECT SUM(duration) AS "totalDur"
+      FROM exercise
+      WHERE exercise.user_id = (SELECT id FROM users WHERE username = $1)
+    `
+    const result = await db.query(query, [user.username])
+    return result.rows
+  }
+  
   static async listExerciseForUser(user) {
     const query = `
       SELECT exercise.id AS "exId",
