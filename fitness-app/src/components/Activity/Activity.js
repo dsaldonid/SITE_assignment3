@@ -1,18 +1,17 @@
 import "./Activity.css"
-import { useEffect } from "react"
-// import { useParams } from "react-router-dom"
-// import axios from "axios"
-import Typography from "@material-ui/core/Typography";
+import { useEffect, useState } from "react"; import Typography from "@material-ui/core/Typography";
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useNavigate } from "react-router-dom"
 import { useAppStateContext } from '../../contexts/appStateContext';
+import useRedirect from "../../hooks/useRedirect";
+import apiClient from '../../services/apiClient';
 
-export default function Activity({ user }) {
-    const { appState, setAppState} = useAppStateContext()
-    const navigate = useNavigate()
+export default function Activity() {
+    const { appState, setAppState } = useAppStateContext()
+    const [average, setAverage] = useState(0)
+    const [max, setMax] = useState(0)
+    const [total, setTotal] = useState(0)
     const cardStyle = {
         display: 'block',
         width: '30vw',
@@ -20,101 +19,95 @@ export default function Activity({ user }) {
         height: '15vw'
     }
 
+    useRedirect(appState)
+
+
     useEffect(() => {
-        // if user is already logged in,
-        // redirect them to the home page
-        if (!appState.isAuthenticated) {
-          navigate("/invalidlogin")
+        const grabAvg = async () => {
+            const {data} = await apiClient.listAvgNutrition() 
+            if (data) setAverage(data.nutritions[0].avgCal)
         }
-      }, [appState.isAuthenticated, navigate])
+        grabAvg()
+    }, [])
 
-    
-    // const { productId } = useParams()
-    // const [product, setProduct] = useState({})
-    // const [isLoading, setIsLoading] = useState(false)
-    // const [error, setError] = useState(null)
+    useEffect(() => {
+        const grabMax = async () => {
+            const {data} = await apiClient.listMaxSleep() 
+            if (data) setMax(data.sleeps)
+        }
+        grabMax()
+    }, [])
 
-    // useEffect(() => {
-    //     const fetchProduct = async () => {
-    //     setIsLoading(true)
+    useEffect(() => {
+        const grabTotal = async () => {
+            const {data} = await apiClient.listTotalExercise() 
+            if (data) setTotal(data.exercises[0].totalDur)
+        }
+        grabTotal()
+    }, [])
 
-    //     try {
-    //         const res = await axios.get(`http://localhost:3001/${productId}`)
-    //         if (res?.data?.product) {
-    //         setProduct(res.data.product)
-    //         }
-    //     } catch (err) {
-    //         setError(err)
-    //     } finally {
-    //         setIsLoading(false)
-    //     }
-    //     }
-
-    //     fetchProduct()
-    // }, [productId])
-
-  const renderDetailContent = () => {
-    // if (isLoading) return <h1>Loading...</h1>
-    // if (error) return <p className="description">No product found</p>
-    return (
-        <>
-        <div className= "activity-header">
-            <Typography variant="body2" color="textSecondary" component="h1">
-                Activity Feed
-            </Typography>
-            <div className = "activity-buttons">
-                <Button variant="outlined" color="primary">
-                    Add Exercise
-                </Button>
-                <Button variant="outlined" color="primary">
-                    Log Sleep
-                </Button>
-                <Button variant="outlined" color="primary">
-                    Record Nutrition
-                </Button>
-            </div>
-        </div>
-        <div className="wrapper">
-            <Card style={cardStyle}>
-                <CardContent >
+    const renderDetailContent = () => {
+        // if (isLoading) return <h1>Loading...</h1>
+        // if (error) return <p className="description">No product found</p>
+        return (
+            <>
+                <div className="activity-header">
                     <Typography variant="body2" color="textSecondary" component="h1">
-                        Total Exercise Minutes
+                        Activity Feed
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Put total hours here
-                    </Typography>
-                </CardContent>
-            </Card>
-            <Card style={cardStyle}>
-                <CardContent >
-                    <Typography variant="body2" color="textSecondary" component="h1">
-                        Avg Sleep Hours
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Put total hours here
-                    </Typography>
-                </CardContent>
-            </Card>
-            <Card style={cardStyle}>
-                <CardContent >
-                    <Typography variant="body2" color="textSecondary" component="h1">
-                        Avg Daily Calories
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Put total hours here
-                    </Typography>
-                </CardContent>
-            </Card>        
-        </div>
-        </>
-      )
+                    <div className="activity-buttons">
+                        <Button variant="outlined" color="primary">
+                            Add Exercise
+                        </Button>
+                        <Button variant="outlined" color="primary">
+                            Log Sleep
+                        </Button>
+                        <Button variant="outlined" color="primary">
+                            Record Nutrition
+                        </Button>
+                    </div>
+                </div>
+                <div className="wrapper">
+                    <Card style={cardStyle}>
+                        <CardContent >
+                            <Typography variant="body2" color="textSecondary" component="h1">
+                                Total Exercise Minutes
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {total}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    <Card style={cardStyle}>
+                        <CardContent >
+                            <Typography variant="body2" color="textSecondary" component="h1">
+                                Max Sleep Hours
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {max}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    <Card style={cardStyle}>
+                        <CardContent >
+                            <Typography variant="body2" color="textSecondary" component="h1">
+                                Avg Daily Calories
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {average}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </div>
+            </>
+        )
     }
 
-  return (
-    <div className="activity">
-        {renderDetailContent()}
-    </div>
-    
-   
-  )
+    return (
+        <div className="activity">
+            {renderDetailContent()}
+        </div>
+
+
+    )
 }

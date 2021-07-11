@@ -13,6 +13,7 @@ class ApiClient{
   }
 
   async request({ endpoint,method = 'GET', data = {}}){
+
     const url = `${this.remoteHostUrl}/${endpoint}`
     const headers =  {
       "Content-Type": "application/json",
@@ -30,6 +31,18 @@ class ApiClient{
       const message = error?.response?.data?.error?.message
       return { data: null, error: message || String(error)}
     }
+  }
+
+  async listTotalExercise(){
+    return await this.request({endpoint:'exercise/total', method:"GET"})
+  }
+
+  async listAvgNutrition(){
+    return await this.request({endpoint:'nutrition/avg', method:"GET"})
+  }
+
+  async listMaxSleep(){
+    return await this.request({endpoint:'sleep/max', method:"GET"})
   }
 
   async listUserExercise(){
