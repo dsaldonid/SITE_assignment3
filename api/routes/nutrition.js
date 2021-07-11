@@ -13,6 +13,16 @@ router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
   }
 })
 
+router.get("/avg", security.requireAuthenticatedUser, async (req, res, next) => {
+  try {
+    const user = res.locals.user
+    const nutritions = await Nutrition.avgNutritionForUser(user)
+    return res.status(200).json({ nutritions })
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const user = res.locals.user

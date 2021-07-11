@@ -11,7 +11,7 @@ class Nutrition {
         const result = await db.query(query, [user.username])
         return result.rows
     }
-    
+
     static async listNutritionForUser(user) {
         const query = `
       SELECT nutrition.id AS "nuId",
@@ -53,7 +53,7 @@ class Nutrition {
 
     static async fetchNutritionById(NutritionId) {
         const result = await db.query(
-    `
+            `
       SELECT nutrition.id AS "nuId",
              nutrition.user_id AS "userId",
              nutrition.name AS "name",
